@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enchanted Travel Co.</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(180deg, #0b1d4d 0%, #163d8f 45%, #f6f7fb 45%, #f6f7fb 100%);
+      color: #1f2a44;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(11, 29, 77, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      color: white;
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .logo span {
+      color: #ffd76a;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      padding: 88px 0 72px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      filter: blur(8px);
+    }
+
+    .hero::before {
+      width: 260px;
+      height: 260px;
+      top: -60px;
+      right: -40px;
+    }
+
+    .hero::after {
+      width: 180px;
+      height: 180px;
+      bottom: 10px;
+      left: -40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 215, 106, 0.14);
+      color: #ffe08d;
+      border: 1px solid rgba(255, 215, 106, 0.35);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.3rem, 5vw, 4.4rem);
+      line-height: 1.05;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      max-width: 620px;
+      color: #e7ecff;
+      margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: 0.25s ease;
+    }
+
+    .btn-primary {
+      background: #ffd76a;
+      color: #10275f;
+      box-shadow: 0 10px 22px rgba(255, 215, 106, 0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.25);
+      color: white;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.16);
+      backdrop-filter: blur(12px);
+      padding: 28px;
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.16);
+    }
+
+    .hero-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    .hero-card p {
+      color: #edf1ff;
+      font-size: 0.97rem;
+      margin-bottom: 20px;
+    }
+
+    .mini-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mini-item {
+      background: rgba(255,255,255,0.08);
+      padding: 14px 16px;
+      border-radius: 16px;
+      color: #fff;
+      font-size: 0.95rem;
+    }
+
+    section {
+      padding: 74px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 42px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      color: #10275f;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: #5e6a85;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 14px 35px rgba(16, 39, 95, 0.08);
+      border: 1px solid #edf1fa;
+    }
+
+    .card .icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, #163d8f, #5b8dff);
+      color: white;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #10275f;
+    }
+
+    .destinations {
+      background: linear-gradient(180deg, #ffffff 0%, #eef4ff 100%);
+    }
+
+    .destination-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .destination {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid #e9eef8;
+      box-shadow: 0 14px 35px rgba(16, 39, 95, 0.08);
+    }
+
+    .destination-top {
+      height: 170px;
+      background: linear-gradient(135deg, #163d8f 0%, #5fa5ff 60%, #a3d4ff 100%);
+      position: relative;
+    }
+
+    .destination-top::after {
+      content: "✦ ✦ ✦";
+      position: absolute;
+      right: 18px;
+      top: 18px;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 6px;
+      font-size: 1rem;
+    }
+
+    .destination-body {
+      padding: 24px;
+    }
+
+    .destination-body h3 {
+      color: #10275f;
+      margin-bottom: 8px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .step {
+      text-align: center;
+      background: white;
+      padding: 28px;
+      border-radius: 24px;
+      box-shadow: 0 14px 35px rgba(16, 39, 95, 0.08);
+      border: 1px solid #edf1fa;
+    }
+
+    .step-number {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #10275f;
+      color: #ffd76a;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      margin: 0 auto 16px;
+      font-size: 1.15rem;
+    }
+
+    .cta {
+      padding: 80px 0 90px;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, #10275f, #214db3);
+      color: white;
+      border-radius: 30px;
+      padding: 44px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+      box-shadow: 0 22px 55px rgba(16, 39, 95, 0.22);
+    }
+
+    .cta-box h2 {
+      font-size: clamp(2rem, 3vw, 3rem);
+      margin-bottom: 14px;
+    }
+
+    .contact-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    .contact-card p {
+      margin-bottom: 10px;
+      color: #e6edff;
+    }
+
+    footer {
+      background: #091631;
+      color: #d7e2ff;
+      padding: 28px 0;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .cta-box,
+      .cards,
+      .destination-grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        padding-top: 64px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">Enchanted <span>Travel</span> Co.</div>
+      <nav class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#destinations">Destinations</a>
+        <a href="#planning">Planning</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="badge">Magical vacations made simple</div>
+        <h1>Plan a Disney-inspired dream vacation with ease.</h1>
+        <p>
+          We help families, couples, and first-time travelers book magical theme park vacations,
+          resort stays, dining, and unforgettable memories with clear planning and personal support.
+        </p>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn btn-primary">Start Planning</a>
+          <a href="#destinations" class="btn btn-secondary">View Destinations</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Your trip, handled step by step</h3>
+        <p>
+          From resorts and tickets to dining suggestions and park tips, we make the process simple and stress free.
+        </p>
+        <div class="mini-list">
+          <div class="mini-item">Resort recommendations for your budget and style</div>
+          <div class="mini-item">Park planning help and custom trip guidance</div>
+          <div class="mini-item">Dining, celebration, and family trip support</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <div class="section-title">
+        <h2>Simple travel help with a magical touch</h2>
+        <p>
+          We keep things easy to understand while helping you plan a vacation that feels exciting, organized, and special.
+        </p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="icon">🏰</div>
+          <h3>Vacation Planning</h3>
+          <p>
+            Personalized help choosing the right resort, ticket options, and itinerary for your trip.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">✨</div>
+          <h3>Stress Free Booking</h3>
+          <p>
+            Get clear guidance on the booking process so you feel confident from start to finish.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🎆</div>
+          <h3>Special Touches</h3>
+          <p>
+            Celebrate birthdays, anniversaries, and family milestones with thoughtful planning ideas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="destinations" id="destinations">
+    <div class="container">
+      <div class="section-title">
+        <h2>Popular magical destinations</h2>
+        <p>
+          Explore favorite vacation options for guests looking for theme parks, resorts, cruises, and memorable family experiences.
+        </p>
+      </div>
+
+      <div class="destination-grid">
+        <div class="destination">
+          <div class="destination-top"></div>
+          <div class="destination-body">
+            <h3>Theme Park Vacations</h3>
+            <p>Perfect for families wanting classic park fun, rides, dining, and magical moments.</p>
+          </div>
+        </div>
+
+        <div class="destination">
+          <div class="destination-top"></div>
+          <div class="destination-body">
+            <h3>Resort Getaways</h3>
+            <p>Find the right resort for your trip style, whether you want value, comfort, or luxury.</p>
+          </div>
+        </div>
+
+        <div class="destination">
+          <div class="destination-top"></div>
+          <div class="destination-body">
+            <h3>Family Cruises</h3>
+            <p>Enjoy a magical at-sea vacation with entertainment, dining, and memorable experiences.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="planning">
+    <div class="container">
+      <div class="section-title">
+        <h2>How it works</h2>
+        <p>
+          Our process is simple, clear, and built to make planning easier for you.
+        </p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Tell us about your trip</h3>
+          <p>Share your dates, group size, budget, and vacation goals.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Get your custom plan</h3>
+          <p>We help match you with the best options for your magical getaway.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Enjoy the magic</h3>
+          <p>Travel with more confidence knowing your vacation details are well planned.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="container">
+      <div class="cta-box">
+        <div>
+          <h2>Ready to start your magical vacation?</h2>
+          <p>
+            Let’s make your trip simple, exciting, and unforgettable. Reach out today and start planning your next magical adventure.
+          </p>
+          <a href="mailto:hello@enchantedtravelco.com" class="btn btn-primary">Email Us</a>
+        </div>
+
+        <div class="contact-card">
+          <p><strong>Email:</strong> hello@enchantedtravelco.com</p>
+          <p><strong>Phone:</strong> (555) 123-4567</p>
+          <p><strong>Hours:</strong> Monday to Friday, 9 AM to 5 PM</p>
+          <p><strong>Based in:</strong> Your City, USA</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      © 2026 Enchanted Travel Co. | Magical vacation planning with a simple, clear approach.
+    </div>
+  </footer>
+</body>
+</html>
